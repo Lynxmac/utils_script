@@ -14,8 +14,6 @@ class Docker(object):
     def restart_containers(self):
         containers = self.list_of_containers()
         for container in containers:
-            if 'rabbitmq' in container:
-                continue
             subprocess.call(["docker restart %s" % container], shell=True)
 
     @staticmethod
@@ -74,6 +72,8 @@ def main():
            #删除所有数据卷与容器
            Docker.remove_all_containers()
            Docker.remove_all_volumes()
+       elif option == 'restart':
+           Docker.restart_all_containers()
        elif option == 'rmv':
            #删除所有数据卷
            Docker.remove_all_volumes()
