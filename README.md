@@ -18,6 +18,7 @@ Some useful scripts
 - 复制到/usr/local/bin/目录下，改名为dockers：　mv dockers.py /usr/local/bin/dockers
 - 添加可执行权限：　chmod +x /usr/local/bin/dockers
 - 删除所有docker容器：　dockers rmc
+- 删除所有none容器：　dockers rmi
 - 删除所有数据卷：　dockers rmv
 - 删除所有docker容器与所有数据卷：　dockers rmall
 - 彻底清理docker容器与数据卷并重新运行整个项目: dockers rebuild
