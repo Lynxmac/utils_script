@@ -14,7 +14,13 @@ class Docker(object):
     def restart_containers(self):
         containers = self.list_of_containers()
         for container in containers:
+            if 'rabbitmq' in container:
+                continue
             subprocess.call(["docker restart %s" % container], shell=True)
+    
+    @classmethod
+    def remove_none_images(self):
+        subprocess.call(["docker rmi $(docker images | grep \"^<none>\" | awk '{print $3}')" ], shell=True)
 
     @staticmethod
     def remove_all_containers():
@@ -72,11 +78,11 @@ def main():
            #删除所有数据卷与容器
            Docker.remove_all_containers()
            Docker.remove_all_volumes()
-       elif option == 'restart':
-           Docker.restart_all_containers()
        elif option == 'rmv':
            #删除所有数据卷
            Docker.remove_all_volumes()
+       elif option == 'rmi':
+           Docker.remove_none_images()
        elif option == 'update':
            #领docker-compose.yml生效
            Docker.compose_up()
